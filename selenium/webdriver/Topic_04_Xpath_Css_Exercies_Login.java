@@ -3,6 +3,7 @@ package webdriver;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -132,7 +133,7 @@ public class Topic_04_Xpath_Css_Exercies_Login {
 		// Input last name
 		driver.findElement(By.xpath("//input[@id='lastname']")).sendKeys("Thanh");
 		// Input email address
-		driver.findElement(By.xpath("//input[@id='email_address']")).sendKeys("nguyenthithanh0894+3@gmail.com");
+		driver.findElement(By.xpath("//input[@id='email_address']")).sendKeys("nguyenthithanh0894+6@gmail.com");
 		// Input password
 		driver.findElement(By.xpath("//input[@id='password']")).sendKeys("123456Aa@");
 		// Input confirm password
@@ -149,20 +150,19 @@ public class Topic_04_Xpath_Css_Exercies_Login {
 		String welcome = driver.findElement(By.xpath("//div[@class='welcome-msg']//strong")).getText();
 		Assert.assertEquals(welcome, "Hello, Nguyen Thanh!");
 		
-		String nameacc = driver.findElement(By.xpath("//div[@class='col-1']//p/text()[1]")).getText();
-		Assert.assertEquals(nameacc, "Nguyen Thanh");
+		String contactText = driver.findElement(By.xpath("//h3[text()='Contact Information']/parent::div/following-sibling::div")).getText();
 		
-		String email = driver.findElement(By.xpath("//div[@class='col-1']//p/text()[2]")).getText();
-		Assert.assertEquals(email, "nguyenthithanh0894+3@gmail.com");
+		Assert.assertTrue(contactText.contains("Nguyen Thanh"));
+		Assert.assertTrue(contactText.contains("nguyenthithanh0894+6@gmail.com"));
 		
-		// Click button My Account
-		driver.findElement(By.xpath("//div[@id='header-account']//a[@title='My Account' and text()='My Account']")).click();
+		driver.findElement(By.xpath("//a[@class='skip-link skip-account']")).click();
 		
 		// logout
 		driver.findElement(By.xpath("//div[@id='header-account']//a[@title='Log Out' and text()='Log Out']")).click();
+		
 		// Verify logout success
-		String logoutsuccess = driver.findElement(By.xpath("//div[@class='col-main']//h1[text()='You are now logged out']")).getText();
-		Assert.assertEquals(logoutsuccess, "You are now logged out");
+//		String logoutsuccess = driver.findElement(By.xpath("//div[@class='col-main']//h1[text()='You are now logged out']")).getText();
+//		Assert.assertEquals(logoutsuccess, "You are now logged out");
 				
 	}
 	
@@ -189,11 +189,12 @@ public class Topic_04_Xpath_Css_Exercies_Login {
 		String welcome = driver.findElement(By.xpath("//div[@class='welcome-msg']//strong")).getText();
 		Assert.assertEquals(welcome, "Hello, Nguyen Thanh!");
 		
-		String nameacc = driver.findElement(By.xpath("//div[@class='col-1']//p/br[1]/preceding-sibling::text()[1][normalize-space()]")).getText();
-		Assert.assertEquals(nameacc, "Nguyen Thanh");
+		String contactText = driver.findElement(By.xpath("//h3[text()='Contact Information']/parent::div/following-sibling::div")).getText();
 		
-		String email = driver.findElement(By.xpath("//div[@class='col-1']//p")).getText();
-		Assert.assertEquals(email, "nguyenthithanh0894+1@gmail.com");
+		Assert.assertTrue(contactText.contains("Nguyen Thanh"));
+		Assert.assertTrue(contactText.contains("nguyenthithanh0894+1@gmail.com"));
+		
+
 		
 				
 	}
@@ -208,7 +209,7 @@ public class Topic_04_Xpath_Css_Exercies_Login {
 	
 	public void sleepInSecond(long second) {
 		try {
-			Thread.sleep(second * 1000);
+			Thread.sleep(second * 3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
