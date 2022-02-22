@@ -189,15 +189,46 @@ public class Topic_06_Element_Exercies {
 	    driver.findElement(By.xpath("//input[@id='new_username']")).sendKeys("Thanh");
 	    WebElement PW = driver.findElement(By.xpath("//input[@id='new_password']"));
 	    PW.click();
-	    
 	    Boolean lowrcaserequire = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='lowercase-char']")).isDisplayed();
+	    Boolean uppercaserequire = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='uppercase-char']")).isDisplayed();
+	    Boolean numberrequire = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='number-char']")).isDisplayed();
+	    Boolean specialcompleterequire = driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='special-char']")).isDisplayed();
+	    Boolean enoughcharacter = driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='8-char']")).isDisplayed();
+
 	    if(lowrcaserequire == true) {
 	    	System.out.println(" lowrcaserequire Elemnt is display");
 	    }
 	    else {
 	    	System.out.println("lowrcaserequire Elemnt is not display");
-	    }		
-	    PW.sendKeys("a");
+	    }	
+	    
+	    if(uppercaserequire == true) {
+	    	System.out.println(" uppercaserequire Elemnt is display");
+	    }
+	    else {
+	    	System.out.println("uppercaserequire Elemnt is not display");
+	    }	
+	    if(numberrequire == true) {
+	    	System.out.println(" numberrequire Elemnt is display");
+	    }
+	    else {
+	    	System.out.println("numberrequire Elemnt is not display");
+	    }	
+	    if(specialcompleterequire == true) {
+	    	System.out.println(" specialcompleterequire Elemnt is display");
+	    }
+	    else {
+	    	System.out.println("specialcompleterequire Elemnt is not display");
+	    }
+	    if(enoughcharacter == true) {
+	    	System.out.println(" 8 characters minimum Elemnt is display");
+	    }
+	    else {
+	    	System.out.println("8 characters minimum Elemnt is not display");
+	    }
+	    
+	    PW.sendKeys("a");   
+	    
 	    WebElement lowrcasecoplete = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='lowercase-char completed']"));
 	    if(lowrcasecoplete.isDisplayed()) {
 	    	System.out.println(" lowrcasecoplete Elemnt is display");
@@ -207,13 +238,6 @@ public class Topic_06_Element_Exercies {
 	    }		
 	    
 	    
-	    Boolean uppercaserequire = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='uppercase-char']")).isDisplayed();
-	    if(uppercaserequire == true) {
-	    	System.out.println(" uppercaserequire Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("uppercaserequire Elemnt is not display");
-	    }		
 	    PW.sendKeys("A");
 	    WebElement uppercasecomplete = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='uppercase-char completed']"));
 	    if(uppercasecomplete.isDisplayed()) {
@@ -224,13 +248,6 @@ public class Topic_06_Element_Exercies {
 	    }		
 	    
 	    
-	    Boolean numberrequire = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='number-char']")).isDisplayed();
-	    if(numberrequire == true) {
-	    	System.out.println(" numberrequire Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("numberrequire Elemnt is not display");
-	    }		
 	    PW.sendKeys("0");
 	    WebElement numbercomplete = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='number-char completed']"));
 	    if(uppercasecomplete.isDisplayed()) {
@@ -240,14 +257,7 @@ public class Topic_06_Element_Exercies {
 	    	System.out.println("numbercomplete Elemnt is not display");
 	    }	
 	    
-	    
-	    Boolean specialcompleterequire = driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='special-char']")).isDisplayed();
-	    if(specialcompleterequire == true) {
-	    	System.out.println(" specialcompleterequire Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("specialcompleterequire Elemnt is not display");
-	    }		
+	    		
 	    PW.sendKeys("@");
 	    WebElement specialcomplete = driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='special-char completed']"));
 	    if(specialcomplete.isDisplayed()) {
@@ -256,20 +266,11 @@ public class Topic_06_Element_Exercies {
 	    else {
 	    	System.out.println("specialcomplete Elemnt is not display");
 	    }	
-	    
-	    
-	    Boolean enoughcharacter = driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='8-char']")).isDisplayed();
-	    if(enoughcharacter == true) {
-	    	System.out.println(" 8 characters minimum Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("8 characters minimum Elemnt is not display");
-	    }		
+	    		
 	    PW.sendKeys("1234");
 	    String PWformatvalid = driver.findElement(By.xpath("//div[@class='lastUnit size1of1']//div[@class='c-mediaBody--centered']")).getText();
 	    Assert.assertTrue(PWformatvalid.contains("Your password is secure and you're all set!"));
-	    
-	    
+	    	    
 	    PW.clear();
 	    PW.sendKeys("123");
 //	    WebElement bttsigup = driver.findElement(By.xpath("//fieldset[@class='!margin-bottom--lv2']//button[@id='create-account']"));
