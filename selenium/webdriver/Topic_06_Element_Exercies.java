@@ -33,34 +33,15 @@ public class Topic_06_Element_Exercies {
 	@Test
 	public void TC_01_Element_Isdisplayed() {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
-		WebElement Email = driver.findElement(By.xpath("//div[@class='container']//input[@id='mail']"));
-		if (Email.isDisplayed()) {
-			System.out.println("Email Element is displayed");
-			Email.sendKeys("Automation Testing");
-		} 
-		else {
-			System.out.println("Email Element is not displayed");
-		}
-		
-		WebElement Age = driver.findElement(By.xpath("//div[@class='container']//input[@id='under_18']"));
-		if(Age.isDisplayed()) {
-			System.out.println("Age Element is displayed");
-			Age.click();
-		}
-		else {
-			System.out.println("Age Element is not displayed");
-		}
-		
-		Boolean Education = driver.findElement(By.xpath("//div[@class='container']//label[@for='edu' and text()='Education:' ]")).isDisplayed();
-		System.out.println("Education is display");
-		Boolean User5 = driver.findElement(By.xpath("//div[@class='figcaption']/h5[(text()='Name: User5')]")).isDisplayed();
-		if(User5==true) {
-			System.out.println(" User5 is display");
-		}
-		else{
-			System.out.println(" User5 is not display");
-		}
-
+//	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='container']//input[@id='mail']")).isDisplayed());
+	    Boolean Email = driver.findElement(By.xpath("//div[@class='container']//input[@id='mail']")).isDisplayed();
+	    System.out.println(Email+" Email Element is displayed");
+	    
+	    Boolean Age = driver.findElement(By.xpath("//div[@class='container']//input[@id='under_18']")).isDisplayed();
+	    System.out.println(Age+ " Age Element is displayed");
+	    
+	    Boolean Education = driver.findElement(By.xpath("//div[@class='container']//label[@for='edu' and text()='Education:' ]")).isDisplayed();
+	    System.out.println(Education+ " Education Element is displayed");
 		
 //		WebElement menuOption = driver.findElement(By.xpath(".//div[contains(text(),'Music')]"));
 //    	//Mouse hover menuOption 'Music'
@@ -92,92 +73,29 @@ public class Topic_06_Element_Exercies {
 	    Boolean Slider1enable = driver.findElement(By.xpath("//div[@class='container']//input[@id='slider-1']")).isEnabled();
 	    System.out.println(Slider1enable+ " is enable");
 		
-		
-		
-		WebElement PWdisable = driver.findElement(By.xpath("//div[@class='container']//input[@id='disable_password']"));
-		if(PWdisable.isEnabled())
-			System.out.println("Element is enable");
-		else{
-			System.out.println("Element is disable");
-		}
-		
-		
-		WebElement Radiobuttondisable = driver.findElement(By.xpath("//div[@class='container']//input[@id='radio-disabled']"));
-		if(Radiobuttondisable.isEnabled())
-			System.out.println("Element is enable");
-		else{
-			System.out.println("Element is disable");
-		}
-		
-		WebElement Biodisable = driver.findElement(By.xpath("//div[@class='container']//textarea[@id='bio']"));
-		if(Biodisable.isEnabled())
-			System.out.println("Element is enable");
-		else{
-			System.out.println("Element is disable");
-		}
-		
-		WebElement Job3disable = driver.findElement(By.xpath("//div[@class='container']//select[@id='job3']"));
-		if(Job3disable.isEnabled())
-			System.out.println("Element is enable");
-		else{
-			System.out.println("Element is disable");
-		}
-		
-		WebElement Checkboxdisable = driver.findElement(By.xpath("//div[@class='container']//input[@id='check-disbaled']"));
-		if(Checkboxdisable.isEnabled())
-			System.out.println("Element is enable");
-		else{
-			System.out.println("Element is disable");
-		}
-		
-		WebElement Slider2disable = driver.findElement(By.xpath("//div[@class='container']//input[@id='slider-2']"));
-		if(Slider2disable.isEnabled())
-			System.out.println("Element is enable");
-		else{
-			System.out.println("Element is disable");
-		}		
+	    Assert.assertFalse(driver.findElement(By.xpath("//div[@class='container']//input[@id='disable_password']")).isEnabled());
+	    Assert.assertFalse(driver.findElement(By.xpath("//div[@class='container']//input[@id='radio-disabled']")).isEnabled());
+	    Assert.assertFalse(driver.findElement(By.xpath("//div[@class='container']//textarea[@id='bio']")).isEnabled());
+	    Assert.assertFalse(driver.findElement(By.xpath("//div[@class='container']//select[@id='job3']")).isEnabled());
+	    Assert.assertFalse(driver.findElement(By.xpath("//div[@class='container']//input[@id='check-disbaled']")).isEnabled());
+	    Assert.assertFalse(driver.findElement(By.xpath("//div[@class='container']//input[@id='slider-2']")).isEnabled());
 		
 	}
 	
 	@Test
 	public void TC_03_Element_Isselected() {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
-	    
-	    WebElement Radiobt = driver.findElement(By.xpath("//div[@class='container']//input[@id='under_18']"));
-	    Radiobt.click();
-	   
+		driver.findElement(By.xpath("//div[@class='container']//input[@id='under_18']")).click();
+		Boolean Radiobt = driver.findElement(By.xpath("//div[@class='container']//input[@id='under_18']")).isSelected();
+		System.out.println(Radiobt+ " is selected");
 	    sleepInSecond(3);
-	    
-	    WebElement checkbox = driver.findElement(By.xpath("//div[@class='container']//input[@id='java']"));
-	    checkbox.click();
-	    
-	    //check element was selected
-	    if(Radiobt.isSelected()) {
-	    	System.out.println(" radio button Element is selected");
-	    }
-	    else {
-	    	System.out.println( " radio button Element is de-selected");
-	    }
-	    
-	    if(checkbox.isSelected()) {
-	    	System.out.println(" checkbox Element is selected");
-	    }
-	    else {
-	    	System.out.println( " checkbox Element is de-selected");
-	    }
-	    
+	    driver.findElement(By.xpath("//div[@class='container']//input[@id='java']")).click();
+	    Boolean checkbox = driver.findElement(By.xpath("//div[@class='container']//input[@id='java']")).isSelected();
+		System.out.println(checkbox+ " is selected");
 	    //uncheck checkbox
-	    checkbox.click();
-	    sleepInSecond(3);
-	    
+	    driver.findElement(By.xpath("//div[@class='container']//input[@id='java']")).click();	     
 	    //check checkbox was uncheck
-	    Boolean uncheckbox = driver.findElement(By.xpath("//div[@class='container']//input[@id='java']")).isSelected();
-	    if(uncheckbox==true) {
-	    	System.out.println("Java Element is checked");
-	    }
-	    else {
-	    	System.out.println( "Java Element is unchecked");
-	    }
+	    Assert.assertFalse(driver.findElement(By.xpath("//div[@class='container']//input[@id='slider-2']")).isSelected());
 	    
 	}
 	
@@ -189,83 +107,20 @@ public class Topic_06_Element_Exercies {
 	    driver.findElement(By.xpath("//input[@id='new_username']")).sendKeys("Thanh");
 	    WebElement PW = driver.findElement(By.xpath("//input[@id='new_password']"));
 	    PW.click();
-	    Boolean lowrcaserequire = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='lowercase-char']")).isDisplayed();
-	    Boolean uppercaserequire = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='uppercase-char']")).isDisplayed();
-	    Boolean numberrequire = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='number-char']")).isDisplayed();
-	    Boolean specialcompleterequire = driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='special-char']")).isDisplayed();
-	    Boolean enoughcharacter = driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='8-char']")).isDisplayed();
-
-	    if(lowrcaserequire == true) {
-	    	System.out.println(" lowrcaserequire Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("lowrcaserequire Elemnt is not display");
-	    }	
 	    
-	    if(uppercaserequire == true) {
-	    	System.out.println(" uppercaserequire Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("uppercaserequire Elemnt is not display");
-	    }	
-	    if(numberrequire == true) {
-	    	System.out.println(" numberrequire Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("numberrequire Elemnt is not display");
-	    }	
-	    if(specialcompleterequire == true) {
-	    	System.out.println(" specialcompleterequire Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("specialcompleterequire Elemnt is not display");
-	    }
-	    if(enoughcharacter == true) {
-	    	System.out.println(" 8 characters minimum Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("8 characters minimum Elemnt is not display");
-	    }
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='lowercase-char']")).isDisplayed());
+	    System.out.println("Element is diplay");
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='uppercase-char']")).isDisplayed());
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='number-char']")).isDisplayed());
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='special-char']")).isDisplayed());
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='8-char']")).isDisplayed());
 	    
-	    PW.sendKeys("a");   
+	    PW.sendKeys("aA0@");   
 	    
-	    WebElement lowrcasecoplete = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='lowercase-char completed']"));
-	    if(lowrcasecoplete.isDisplayed()) {
-	    	System.out.println(" lowrcasecoplete Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("lowrcasecoplete Elemnt is not display");
-	    }		
-	    
-	    
-	    PW.sendKeys("A");
-	    WebElement uppercasecomplete = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='uppercase-char completed']"));
-	    if(uppercasecomplete.isDisplayed()) {
-	    	System.out.println(" uppercasecomplete Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("uppercasecomplete Elemnt is not display");
-	    }		
-	    
-	    
-	    PW.sendKeys("0");
-	    WebElement numbercomplete = driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='number-char completed']"));
-	    if(uppercasecomplete.isDisplayed()) {
-	    	System.out.println(" numbercomplete Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("numbercomplete Elemnt is not display");
-	    }	
-	    
-	    		
-	    PW.sendKeys("@");
-	    WebElement specialcomplete = driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='special-char completed']"));
-	    if(specialcomplete.isDisplayed()) {
-	    	System.out.println(" specialcomplete Elemnt is display");
-	    }
-	    else {
-	    	System.out.println("specialcomplete Elemnt is not display");
-	    }	
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='lowercase-char completed']")).isDisplayed());
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='uppercase-char completed']")).isDisplayed());
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='group size1of2']//li[@class='number-char completed']")).isDisplayed());
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='lastGroup size1of2']//li[@class='special-char completed']")).isDisplayed());	    
 	    		
 	    PW.sendKeys("1234");
 	    String PWformatvalid = driver.findElement(By.xpath("//div[@class='lastUnit size1of1']//div[@class='c-mediaBody--centered']")).getText();
@@ -273,25 +128,12 @@ public class Topic_06_Element_Exercies {
 	    	    
 	    PW.clear();
 	    PW.sendKeys("123");
-//	    WebElement bttsigup = driver.findElement(By.xpath("//fieldset[@class='!margin-bottom--lv2']//button[@id='create-account']"));
-//	    String attribute = driver.findElement(By.xpath("//fieldset[@class='!margin-bottom--lv2']//button[@id='create-account']")).getAttribute("disable");
-//	    System.out.println(attribute);
-//	    
-	    Boolean bttsigup = driver.findElement(By.xpath("//fieldset[@class='!margin-bottom--lv2']//button[@id='create-account']")).isEnabled();
-	    if(bttsigup==true) {
-	    	System.out.println("Button Sigup is enable");
-	    }
-	    else {
-	    	System.out.println("Button Sigup is disable");
-	    }
+	    
+	    Assert.assertFalse(driver.findElement(By.xpath("//fieldset[@class='!margin-bottom--lv2']//button[@id='create-account']")).isEnabled());
 	    		
 	    driver.findElement(By.xpath("//div[@class='margin-bottom--lv4']//input[@id='marketing_newsletter']")).click();
 	    Boolean checkbox = driver.findElement(By.xpath("//div[@class='margin-bottom--lv4']//input[@id='marketing_newsletter']")).isSelected();
-	    System.out.println(checkbox+ " checkbox is checked");
-	 
-	    
-	    
-	  
+	    System.out.println(checkbox+ " checkbox is checked");	   
 	  
 	}	
 	
