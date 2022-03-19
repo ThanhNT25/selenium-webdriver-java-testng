@@ -1,5 +1,6 @@
 package webdriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -21,10 +22,18 @@ public class Topic_09_Button_Default_Radio_Checkbox_Exercies {
 	String projectPath = System.getProperty("user.dir");
 	JavascriptExecutor jsExecutor;
 	Actions action;
+	String osName = System.getProperty("os.name");
 	
 
 	@BeforeClass
 	public void beforeClass() {
+//		if(osName.startsWith("Windows")) {
+//			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+//		} else if(osName.startsWith("Mac")) {
+//			System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
+//		} else {
+//			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+//		}
 //		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 //		driver = new FirefoxDriver();
 
@@ -36,11 +45,10 @@ public class Topic_09_Button_Default_Radio_Checkbox_Exercies {
 
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-//		driver.get("https://opensource-demo.orangehrmlive.com/");
 	}
 	
 	@Test
-	public void TC_01_Button_Defautl_Radio_Checkbox() {
+	public void TC_01_Button() {
 		driver.get("https://www.fahasa.com/customer/account/create");
 		
 		driver.findElement(By.xpath("//li[@class='popup-login-tab-item popup-login-tab-login']")).click();
@@ -94,7 +102,7 @@ public class Topic_09_Button_Default_Radio_Checkbox_Exercies {
 		}
 		
 		//verify checkbox da duoc chon
-				Assert.assertTrue(checkboxDual.isSelected());
+		Assert.assertTrue(checkboxDual.isSelected());
 				
 		//kiem tra da chon va thuc hien bo chon
 		if(checkboxDual.isSelected()) {
@@ -115,10 +123,94 @@ public class Topic_09_Button_Default_Radio_Checkbox_Exercies {
 	
 		WebElement radiobutton = driver.findElement(By.xpath("//label[text()='2.0 Petrol, 147kW']/preceding-sibling::input"));	
 
-			jsExecutor.executeScript("arguments[0].click();", radiobutton);
-			sleepInSecond(2);
-			Assert.assertTrue((radiobutton).isSelected());
+		jsExecutor.executeScript("arguments[0].click();", radiobutton);
+		sleepInSecond(2);
+		Assert.assertTrue((radiobutton).isSelected());
 				
+	}
+	
+	@Test
+	public void TC_04_Default_Checkbox_ham() {
+		driver.get("http://demos.telerik.com/kendo-ui/styling/checkboxes");
+		
+		//WebElement checkboxDual = driver.findElement(By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input"));	
+		//By checkboxDual = By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input");
+		
+		//select
+		//checkToCheckbox(checkboxDual);
+		
+		//verify checkbox da duoc chon
+		//Assert.assertTrue(driver.findElement(checkboxDual).isSelected());
+				
+		//uncheck
+		//uncheckToCheckbox(checkboxDual);
+		
+		//verify checkbox da uncheck
+		//Assert.assertFalse(driver.findElement(checkboxDual).isSelected());
+		
+	}
+	
+	@Test
+	public void TC_05_Multiple_Checkbox() {
+		driver.get("https://automationfc.github.io/multiple-fields/");
+		
+		List<WebElement> checkboxs = driver.findElements(By.cssSelector("input[type='checkbox']"));
+		//action
+		for(WebElement checkbox : checkboxs) {
+			if(!checkbox.isSelected()) {
+				checkbox.click();
+				//sleepInSecond(1);
+			}
+			
+		}
+		
+		//verify
+		for(WebElement checkbox : checkboxs) {
+			Assert.assertTrue(checkbox.isSelected());
+		
+		}
+		
+		for(WebElement checkbox : checkboxs) {
+			if(checkbox.isSelected()) {
+				checkbox.click();
+				//sleepInSecond(1);
+			}
+			
+		}
+		
+		//verify
+		for(WebElement checkbox : checkboxs) {
+			Assert.assertFalse(checkbox.isSelected());
+		
+		}
+		
+	}
+
+	public void checkToCheckbox (By by) {
+		if (!driver.findElement(by).isSelected()) {
+			driver.findElement(by).click();		}
+	}
+	
+	public void uncheckToCheckbox (By by) {
+		if (driver.findElement(by).isSelected()) {
+			driver.findElement(by).click();
+		}
+	}
+	
+	public boolean elementIsSelected (By by) {
+		if (driver.findElement(by).isSelected()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean elementIsEnable (By by) {
+		if (driver.findElement(by).isEnabled()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@AfterClass
