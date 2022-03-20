@@ -96,19 +96,21 @@ public class Topic_09_Alert_Exercies {
 	public void TC_05_Authentication_Alert_AutoIT() {
 		String username = "admin";
 		String password = "admin";
-		driver.get("http://the-internet.herokuapp.com/basic_auth");
+		driver.get("http://the-internet.herokuapp.com/");
 		
 		String basicAuthenLink = driver.findElement(By.xpath("//a[text()='Basic Auth']")).getAttribute("href");
+		System.out.println(basicAuthenLink);
 		
 		String[] basicAuthen = basicAuthenLink.split("//");
 		
 		basicAuthenLink = basicAuthen[0] + "//" + username + ":" + password + "@" + basicAuthen[1];
+		System.out.println(basicAuthenLink);
 		
 		driver.get(basicAuthenLink);
 		
 		sleepInSecond(3);
 		
-		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(),'Congratulations! You must have the proper credentials.']")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(),'Congratulations! You must have the proper credentials.')]")).isDisplayed());
 		
 		
 		 
