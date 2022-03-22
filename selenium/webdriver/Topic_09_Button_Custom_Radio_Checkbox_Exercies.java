@@ -22,10 +22,18 @@ public class Topic_09_Button_Custom_Radio_Checkbox_Exercies {
 	String projectPath = System.getProperty("user.dir");
 	JavascriptExecutor jsExecutor;
 	Actions action;
+	String osName = System.getProperty("os.name");
 	
 
 	@BeforeClass
 	public void beforeClass() {
+//		if(osName.startsWith("Windows")) {
+//			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+//		} else if(osName.startsWith("Mac")) {
+//			System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
+//		} else {
+//			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+//		}
 //		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 //		driver = new FirefoxDriver();
 
@@ -40,78 +48,169 @@ public class Topic_09_Button_Custom_Radio_Checkbox_Exercies {
 	}
 	
 	@Test
-	public void TC_01_Custom_Radio() {
-		driver.get("https://material.angular.io/components/radio/examples");
+	public void TC_01_Button() {
+		driver.get("https://www.fahasa.com/customer/account/create");
 		
-		//WebElement radioSummer = driver.findElement(By.xpath("//input[@value='Summer']"));
-		By radioSummer = By.xpath("//input[@value='Summer']");
-		clickJavascript(radioSummer);
-		Assert.assertTrue(driver.findElement(radioSummer).isSelected());
-					
+		driver.findElement(By.xpath("//li[@class='popup-login-tab-item popup-login-tab-login']")).click();
+		By buttonDangNhap = By.xpath("//button[@class='fhs-btn-login']");
+		
+		//verify button đăng nhập disable
+		Assert.assertFalse(driver.findElement(buttonDangNhap).isEnabled());
+		
+		driver.findElement(By.xpath("//input[@id='login_username']")).sendKeys("0349461320");
+		driver.findElement(By.xpath("//input[@id='login_password']")).sendKeys("123456");
+		
+		//verify button đăng nhập enable và có màu đỏ
+		Assert.assertTrue(driver.findElement(buttonDangNhap).isEnabled());
+		String buttonloginBackgroundColorrgba = driver.findElement(buttonDangNhap).getCssValue("background-color");
+		System.out.println("rgba color" +buttonloginBackgroundColorrgba);
+
+		//Convert qua Hexa
+		String backgroundbuttonlogincolorhexa = Color.fromString(buttonloginBackgroundColorrgba).asHex();
+		Assert.assertEquals(backgroundbuttonlogincolorhexa.toUpperCase(), "#C92127");
+		
+		String backgroundbuttonlogincolorrgb = Color.fromString(buttonloginBackgroundColorrgba).asRgb();
+		Assert.assertEquals(backgroundbuttonlogincolorrgb, "rgb(201, 33, 39)");
+		
+		//refresh page
+		driver.navigate().refresh();
+		driver.findElement(By.xpath("//li[@class='popup-login-tab-item popup-login-tab-login']")).click();
+		
+		//remove disable attribute
+		jsExecutor.executeScript("arguments[0].removeAttribute('disabled');", driver.findElement(buttonDangNhap));
+		sleepInSecond(2);
+		
+		driver.findElement(buttonDangNhap).click();
+		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='popup-login-content']//label[text()='Số điện thoại/Email']/following-sibling::div[@class='fhs-input-alert']")).getText(), "Thông tin này không thể để trống");
+		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='popup-login-content']//label[text()='Mật khẩu']/following-sibling::div[@class='fhs-input-alert']")).getText(), "Thông tin này không thể để trống");
+
+			
 	}
 
 	@Test
-	public void TC_02_Custom_Checkbox() {
-		driver.get("https://material.angular.io/components/checkbox/examples");
-			
-		By checkboxChecked = By.xpath("//span[text()='Checked']/preceding-sibling::span/input");
-		By checkboxIndeterminate = By.xpath("//span[text()='Indeterminate']/preceding-sibling::span/input");
+	public void TC_02_Default_Checkbox() {
+		driver.get("http://demos.telerik.com/kendo-ui/styling/checkboxes");
+		
+		WebElement checkboxDual = driver.findElement(By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input"));	
+		//By checkboxDual = By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input");
 		
 		//kiem tra chua duoc chon va thuc hien chon
-		if(!driver.findElement(checkboxChecked).isSelected()) {
-			clickJavascript(checkboxChecked);
-			sleepInSecond(2);	
-		}
-		if(!driver.findElement(checkboxIndeterminate).isSelected()) {
-			clickJavascript(checkboxIndeterminate);
-			sleepInSecond(2);	
+		if(!checkboxDual.isSelected()) {
+			//driver.findElement(checkboxDual).click();
+			jsExecutor.executeScript("arguments[0].click();", checkboxDual);
+			sleepInSecond(2);
 		}
 		
 		//verify checkbox da duoc chon
-		Assert.assertTrue(driver.findElement(checkboxChecked).isSelected());
-		Assert.assertTrue(driver.findElement(checkboxIndeterminate).isSelected());
+		Assert.assertTrue(checkboxDual.isSelected());
 				
 		//kiem tra da chon va thuc hien bo chon
-		if(driver.findElement(checkboxChecked).isSelected()) {
-			clickJavascript(checkboxChecked);
-			sleepInSecond(2);	
-		}
-		if(driver.findElement(checkboxIndeterminate).isSelected()) {
-			clickJavascript(checkboxIndeterminate);
-			sleepInSecond(2);	
+		if(checkboxDual.isSelected()) {
+			//driver.findElement(checkboxDual).click();
+			jsExecutor.executeScript("arguments[0].click();", checkboxDual);
+			sleepInSecond(2);
 		}
 		
-		//verify checkbox da duoc chon
-		Assert.assertFalse(driver.findElement(checkboxChecked).isSelected());
-		Assert.assertFalse(driver.findElement(checkboxIndeterminate).isSelected());
+		//verify checkbox da uncheck
+		Assert.assertFalse(checkboxDual.isSelected());
 		
 	}
 	
 	@Test
-	public void TC_03_Custom_Radio_Google_Doc() {
-		driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfiypnd69zhuDkjKgqvpID9kwO29UCzeCVrGGtbNPZXQok0jA/viewform");
-		
-		By radioCantho = By.xpath("//div[@data-value='Cần Thơ']");
-		By checkboxQuangNam = By.xpath("//div[@aria-label='Quảng Nam']");
-		By checkboxQuangNgai = By.xpath("//div[@aria-label='Quảng Ngãi']");
-		
-		Assert.assertEquals(driver.findElement(radioCantho).getAttribute("aria-checked"), "false");
-		Assert.assertEquals(driver.findElement(checkboxQuangNam).getAttribute("aria-checked"), "false");
-		Assert.assertEquals(driver.findElement(checkboxQuangNgai).getAttribute("aria-checked"), "false");
-		
-		clickJavascript(radioCantho);
-		clickJavascript(checkboxQuangNam);
-		clickJavascript(checkboxQuangNgai);
-		
-		Assert.assertEquals(driver.findElement(radioCantho).getAttribute("aria-checked"), "true");
-		Assert.assertEquals(driver.findElement(checkboxQuangNam).getAttribute("aria-checked"), "true");
-		Assert.assertTrue(driver.findElement(By.xpath("//div[@aria-label='Quảng Ngãi' and @aria-checked='true']")).isDisplayed());
-			
+	public void TC_03_Default_Radio() {
+		driver.get("http://demos.telerik.com/kendo-ui/styling/radios");
+		//By radiobutton = By.xpath("//label[text()='2.0 Petrol, 147kW']/preceding-sibling::input");
+	
+		WebElement radiobutton = driver.findElement(By.xpath("//label[text()='2.0 Petrol, 147kW']/preceding-sibling::input"));	
+
+		jsExecutor.executeScript("arguments[0].click();", radiobutton);
+		sleepInSecond(2);
+		Assert.assertTrue((radiobutton).isSelected());
+				
 	}
 	
+	@Test
+	public void TC_04_Default_Checkbox_ham() {
+		driver.get("http://demos.telerik.com/kendo-ui/styling/checkboxes");
+		
+		//WebElement checkboxDual = driver.findElement(By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input"));	
+		//By checkboxDual = By.xpath("//label[text()='Dual-zone air conditioning']/preceding-sibling::input");
+		
+		//select
+		//checkToCheckbox(checkboxDual);
+		
+		//verify checkbox da duoc chon
+		//Assert.assertTrue(driver.findElement(checkboxDual).isSelected());
+				
+		//uncheck
+		//uncheckToCheckbox(checkboxDual);
+		
+		//verify checkbox da uncheck
+		//Assert.assertFalse(driver.findElement(checkboxDual).isSelected());
+		
+	}
 	
-	public void clickJavascript (By by) {
-		jsExecutor.executeScript("arguments[0].click();", driver.findElement(by));
+	@Test
+	public void TC_05_Multiple_Checkbox() {
+		driver.get("https://automationfc.github.io/multiple-fields/");
+		
+		List<WebElement> checkboxs = driver.findElements(By.cssSelector("input[type='checkbox']"));
+		//action
+		for(WebElement checkbox : checkboxs) {
+			if(!checkbox.isSelected()) {
+				checkbox.click();
+				//sleepInSecond(1);
+			}
+			
+		}
+		
+		//verify
+		for(WebElement checkbox : checkboxs) {
+			Assert.assertTrue(checkbox.isSelected());
+		
+		}
+		
+		for(WebElement checkbox : checkboxs) {
+			if(checkbox.isSelected()) {
+				checkbox.click();
+				//sleepInSecond(1);
+			}
+			
+		}
+		
+		//verify
+		for(WebElement checkbox : checkboxs) {
+			Assert.assertFalse(checkbox.isSelected());
+		
+		}
+		
+	}
+
+	public void checkToCheckbox (By by) {
+		if (!driver.findElement(by).isSelected()) {
+			driver.findElement(by).click();		}
+	}
+	
+	public void uncheckToCheckbox (By by) {
+		if (driver.findElement(by).isSelected()) {
+			driver.findElement(by).click();
+		}
+	}
+	
+	public boolean elementIsSelected (By by) {
+		if (driver.findElement(by).isSelected()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean elementIsEnable (By by) {
+		if (driver.findElement(by).isEnabled()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@AfterClass
