@@ -3,6 +3,7 @@ package webdriver;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,6 +26,7 @@ public class Topic_10_Action_Exercies {
 	String osName =  System.getProperty("OS.name");
 	JavascriptExecutor jsExecutor;
 	Actions action;
+	Alert alert;
 	
 
 	@BeforeClass
@@ -97,6 +99,10 @@ public class Topic_10_Action_Exercies {
 //		}else {
 //			controlKey =  Keys.COMMAND;
 //		}
+//		
+//		action.keyDown(controlKey).perform();
+//		action.click(allNumber.get(0)).click(allNumber.get(4)).click(allNumber.get(10)).perform();
+//		action.keyUp(controlKey).perform();
 		
 		action.keyDown(Keys.CONTROL).perform();
 		action.click(allNumber.get(0)).click(allNumber.get(4)).click(allNumber.get(10)).perform();
@@ -106,6 +112,51 @@ public class Topic_10_Action_Exercies {
 		List<WebElement> allNumberSelected = driver.findElements(By.cssSelector("ol#selectable>li.ui-selected"));
 		Assert.assertEquals(allNumberSelected.size(), 3);
 				
+	}
+	
+	@Test
+	public void TC_05_Right_Click() {
+		driver.get("https://automationfc.github.io/basic-form/index.html");
+		
+		action.doubleClick(driver.findElement(By.xpath("//button[text()='Double click me']"))).perform();
+		
+		//verify
+		Assert.assertEquals(driver.findElement(By.cssSelector("p#demo")).getText(), "Hello Automation Guys!");
+	
+	}
+	
+	@Test
+	public void TC_06_Right_Click() {
+		driver.get("http://swisnl.github.io/jQuery-contextMenu/demo.html");
+		
+		action.contextClick(driver.findElement(By.xpath("//span[@class='context-menu-one btn btn-neutral']"))).perform();
+		sleepInSecond(3);
+		action.moveToElement(driver.findElement(By.xpath("//span[text()='Quit']"))).perform();
+		sleepInSecond(3);
+		
+		//verify
+		Assert.assertTrue(driver.findElement(By.cssSelector("li.context-menu-icon.context-menu-icon-quit.context-menu-hover.context-menu-visible")).isDisplayed());
+		action.click(driver.findElement(By.cssSelector("li.context-menu-icon.context-menu-icon-quit.context-menu-hover.context-menu-visible"))).perform();
+		
+		alert = driver.switchTo().alert();
+		alert.accept();
+		
+		Assert.assertFalse(driver.findElement(By.cssSelector("li.context-menu-icon.context-menu-icon-quit")).isDisplayed());
+
+	
+	}
+	
+	@Test
+	public void TC_07_Drap_Drop_Element() {
+		driver.get("https://automationfc.github.io/kendo-drag-drop/");
+	
+		WebElement smallCircle = driver.findElement(By.cssSelector("div#draggable"));
+		WebElement bigCircle = driver.findElement(By.cssSelector("div#droptarget"));
+		action.dragAndDrop(smallCircle,bigCircle).build().perform();
+		//action.clickAndHold(smallCircle).moveToElement(bigCircle).release(bigCircle).perform();
+		Assert.assertEquals(bigCircle.getText(), "You did great!");
+		Assert.assertEquals(Color.fromString(bigCircle.getCssValue("background-color")).asHex().toLowerCase(), "#03a9f4");
+		
 	}
 	
 
