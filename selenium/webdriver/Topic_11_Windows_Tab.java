@@ -135,6 +135,31 @@ public class Topic_11_Windows_Tab {
 		Assert.assertEquals(driver.findElement(By.xpath("//span[text()='The comparison list was cleared.']")).getText(),"The comparison list was cleared.");
 
 	}
+	
+	@Test
+	public void TC_05_Iframe_Cambrigde() {
+		driver.get("https://dictionary.cambridge.org/vi/");
+		String homePageWindowsID = driver.getWindowHandle();
+		System.out.print("Tab A: " + homePageWindowsID);
+
+		driver.findElement(By.cssSelector("span.cdo-login-button")).click();
+		switchToWindowByID(homePageWindowsID);
+		driver.findElement(By.cssSelector("input[value='Log in']")).click();
+		
+		Assert.assertEquals(driver.findElement(By.xpath("(//div[@class='gigya-layout-cell responsive with-site-login']//span[@data-bound-to='loginID'])[2]")).getText(),
+				"This field is required");
+		
+		Assert.assertEquals(driver.findElement(By.xpath("(//div[@class='gigya-layout-cell responsive with-site-login']//span[@data-bound-to='password'])[3]")).getText(),
+				"This field is required");
+		
+		driver.findElement(By.xpath("//input[@name='username' and @placeholder='Email *' ]")).sendKeys("automationfc.com@gmail.com");
+		driver.findElement(By.xpath("//input[@name='password' and @placeholder='Password *' ]")).sendKeys("Automation000***");
+		driver.findElement(By.cssSelector("input[value='Log in']")).click();
+		sleepInSecond(10);
+		switchToWindowByTitle("Cambridge Dictionary | Từ điển tiếng Anh, Bản dịch & Từ điển từ đồng nghĩa");
+		Assert.assertEquals(driver.findElement(By.cssSelector("span.cdo-username")).getText(), "Automation FC");
+
+	}
 
 	public void switchToWindowByID(String currentWindowID) {
 		// lay het tat ca cac ID dang co ra
