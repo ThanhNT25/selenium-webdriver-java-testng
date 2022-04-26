@@ -43,7 +43,6 @@ public class Topic_15_Wait_Element_Status {
 	@Test
 	public void TC_01_Visible() {
 		driver.get("https://www.facebook.com/");
-
 		// visible co tren UI va co trong DOM
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='email']")));
 		Assert.assertTrue(driver.findElement(By.xpath("//input[@id='email']")).isDisplayed());

@@ -71,18 +71,6 @@ public class Topic_15_Wait_Find_Element_PartII {
 			
 	}
 	
-	@Test
-	public void TC_04_Presence() {
-		driver.get("https://www.facebook.com/");
-		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[@id='email']")));
-
-		driver.findElement(By.xpath("//a[@data-testid='open-registration-form-button']")).click();
-		sleepInSecond(2);
-		
-		//co trong DOM va khong co tron UI
-		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//input[@name='reg_email_confirmation__']")));
-			
-	}
 	
 
 	@AfterClass
