@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Suite">
+	<groups>
+		<run>
+			<include name = "admin"/>
+		</run>
+	</groups>	
+	  <test name="Test"> 
+<!-- 		    <classes> -->
+<!-- 		      <class name="tech.Topic_02_Assert"/> -->
+<!-- 		    </classes> -->
+
+	<packages>
+		<package name ="admin" />
+	</packages>
+	  	</test> 
+
+	
+</suite> <!-- Suite -->

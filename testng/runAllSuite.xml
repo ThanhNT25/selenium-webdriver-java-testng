@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Run All Suite">
+	  <suite-files> 
+		    <suite-file path="runAssert.xml"/>
+		    <suite-file path="runParallel.xml"/>
+	  </suite-files> 
+</suite> <!-- Suite -->

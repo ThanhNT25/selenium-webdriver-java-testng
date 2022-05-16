@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Suite">
+	  <test name="Run on CHROME browser"> 
+	  		<parameter name ="browser" value = "chrome"/>
+		    <classes>
+		      <class name="tech.Topic_04_Multiple_Browser"/>
+		    </classes>
+	  </test> 
+	  
+	  <test name="Run on FIREFOX browser"> 
+	  		<parameter name ="browser" value = "firefox"/>
+		    <classes>
+		      <class name="tech.Topic_04_Multiple_Browser"/>
+		    </classes>
+	  </test> 
+</suite> <!-- Suite -->
